@@ -46,7 +46,7 @@
                         <input class="form-control input-sm" type="text" name="name">
                     </div>
                     <div class="form-group">
-                        <label>E-mail</label>
+                        <label>E-mail </label>
                         <input class="form-control input-sm" type="email" name="email">
                     </div>
                     <div class="form-group">
