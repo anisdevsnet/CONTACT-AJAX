@@ -11,7 +11,7 @@ class ContactController extends Controller
     {
         return view(view:'contact-jquery');
     }
-    public function  getData()
+    public function getData()
     {
         return Contact::all();
     }
