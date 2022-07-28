@@ -9,7 +9,8 @@ class ContactController extends Controller
 {
     public function getIndex()
     {
-        return view(view:'contact-jquery');
+        $contacts=Contact::all();
+        return view('contact-jquery',['contacts'=>$contacts]);
     }
     public function getData()
     {

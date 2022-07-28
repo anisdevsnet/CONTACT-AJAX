@@ -1,11 +1,13 @@
 @extends('app')
 @section('content')
+
     <div class="container">
 
         <div class="col-md-12">
             <div class="clearfix">
                 <span>Laravel - jQuery CRUD</span>
-                <a class="btn btn-success btn-sm pull-right" onclick="create()">Add New</a>
+                <a class="btn btn-success btn-sm pull-right" data-bs-toggle="modal" data-bs-target="#modal"
+                     onclick="create()">Add New</a>
             </div>
 
             <!--data listing table-->
@@ -19,13 +21,29 @@
                     <td>ACTION</td>
                 </tr>
                 </thead>
+               
                 <tbody>
+                    @foreach ($contacts as $row)
+                    <tr>
+              <td> {{  $row->id   }}</td>
+              <td> {{ $row->name }} </td>
+    <td> {{  $row->email  }} </td>
+    <td> {{  $row->phone  }} </td>
+     <td>
+     <button type="button" class="btn btn-xs btn-warning btnEdit" title="Edit Record" >Edit</button>
+     <button type="button" class="btn btn-xs btn-danger btnDelete" data-id="' + $row.id + '" title="Delete Record">Delete</button>
+       </td> 
+       </tr>
 
+@endforeach
                 </tbody>
+               
+                
             </table>
             <!--data listing table-->
-
+           
         </div>
+       
 
     </div>
 
@@ -57,16 +75,25 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 
-                    <button type="button" class="btn btn-primary btnSave"
-                            onClick="store()">Save
-                    </button>
+                   <a href="" class="btn btn-primary btnSave" onclick="store()">Save</a>
                     <button type="button" class="btn btn-primary btnUpdate"
                             onClick="update()">Update
                     </button>
                 </div>
+            
             </div><!-- /.modal-content -->
+            
         </div><!-- /.modal-dialog -->
+       
     </div><!-- /.modal -->
+    <style>
+        .w-5{
+            display: none;
+        }
+    </style>
+
+    
+    
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
 <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
@@ -88,18 +115,21 @@
             $.get('{{ url('admin') }}' + '/contacts/data')
                 .success(function (data) {
                     var html='';
-                    data.forEach(function(row){
+                    data.forEach(function($row){
                         html += '<tr>'
-                        html += '<td>' + row.id + '</td>'
-                        html += '<td>' + row.name + '</td>'
-                        html += '<td>' + row.email + '</td>'
-                        html += '<td>' + row.phone + '</td>'
+                        html += '<td>' + $row.id + '</td>'
+                        html += '<td>' + $row.name + '</td>'
+                        html += '<td>' + $row.email + '</td>'
+                        html += '<td>' + $row.phone + '</td>'
                         html += '<td>'
                         html += '<button type="button" class="btn btn-xs btn-warning btnEdit" title="Edit Record" >Edit</button>'
-                        html += '<button type="button" class="btn btn-xs btn-danger btnDelete" data-id="' + row.id + '" title="Delete Record">Delete</button>'
+                        html += '<button type="button" class="btn btn-xs btn-danger btnDelete" data-id="' + $row.id + '" title="Delete Record">Delete</button>'
                         html += '</td> </tr>';
+                      
                     })
                     $('table tbody').html(html)
+                  
+             
                 })
         }
         getRecords()
